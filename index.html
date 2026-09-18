@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&amp;display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{margin:0;}
+    ::selection{background:#B08D57;color:#fff;}
+    input,select,textarea,button{font-family:inherit;}
+    .lucide{stroke-width:1.5;}
+    #svc-scroll{scrollbar-width:none;-ms-overflow-style:none;}
+    #svc-scroll::-webkit-scrollbar{display:none;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+    @keyframes svcFall{from{opacity:0;transform:translateY(-26px) rotate(-2deg);}to{opacity:1;transform:none;}}
+    @keyframes svcEmerge{from{opacity:.25;transform:translateX(-32%) rotate(5deg) scale(.9);}to{opacity:1;transform:translateX(-56%) rotate(0) scale(1);}}
+    @keyframes aoraDraw{0%{clip-path:inset(0 100% 0 0);}100%{clip-path:inset(0 0 0 0);}}
+    @keyframes introSub{0%,55%{opacity:0;letter-spacing:.32em;}100%{opacity:1;letter-spacing:.44em;}}
+    @media (min-width:900px){ #utisci [data-side]{display:block !important;} }
+    @keyframes aoraMarquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    .fl{color:rgba(74,59,51,.72);text-decoration:none;font-size:15px;transition:color .2s;}
+    .fl:hover{color:#B08D57;}
+    .fico{color:#5A4B41;transition:color .2s,transform .2s;}
+    .fico:hover{color:#B08D57;transform:translateY(-2px);}
+    .svc-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:end;}
+    .svc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2vw,26px);margin-top:clamp(44px,6vw,72px);}
+    .svc-card{display:block;text-decoration:none;background:#F7F1E8;border:1px solid rgba(176,141,87,.16);border-radius:22px;padding:14px 14px 20px;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,border-color .3s;}
+    .svc-card:hover{transform:translateY(-6px);box-shadow:0 32px 60px -34px rgba(60,45,25,.5);border-color:rgba(176,141,87,.34);}
+    .svc-imgwrap{overflow:hidden;border-radius:14px;height:clamp(200px,24vw,260px);}
+    .svc-img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+    .svc-card:hover .svc-img{transform:scale(1.06);}
+    .svc-name{margin:16px 6px 0;font-family:'Questrial',sans-serif;font-size:clamp(18px,1.5vw,22px);color:#241E18;letter-spacing:.01em;}
+    .nav-burger{display:none;background:none;border:none;cursor:pointer;color:#2E2822;padding:6px;line-height:0;}
+    .nav-panel{display:none;flex-basis:100%;flex-direction:column;gap:2px;padding:10px 2px 4px;margin-top:6px;border-top:1px solid rgba(176,141,87,.2);}
+    .nav-panel a{color:#2E2822;text-decoration:none;font-size:15.5px;letter-spacing:.02em;padding:12px 10px;border-radius:12px;transition:background .2s,color .2s;}
+    .nav-panel a:hover{background:rgba(255,255,255,.55);color:#B08D57;}
+    .nav-panel a.cta{margin-top:8px;text-align:center;background:#241E18;color:#fff;text-transform:uppercase;font-size:12.5px;letter-spacing:.14em;}
+    .nav-panel a.cta:hover{background:#3A322B;color:#fff;}
+    @media(max-width:860px){
+      .nav-desktop{display:none !important;}
+      .nav-burger{display:inline-flex !important;}
+      #zasto [data-why-idx] > div{width:100% !important;}
+      .ftr-grid{display:flex !important;flex-direction:column;align-items:center;gap:32px !important;}
+      .ftr-grid > div{text-align:center !important;width:100%;}
+      .ftr-grid > div:nth-child(1){order:1;}
+      .ftr-grid > div:nth-child(3){order:2;}
+      .ftr-grid > div:nth-child(2){order:3;gap:18px !important;}
+      .ftr-logo{width:150px !important;height:126px !important;}
+      .ftr-logo img{width:100px !important;}
+      .gal-grid{grid-template-columns:1fr 1fr !important;}
+    }
+    @media(min-width:861px) and (max-width:1080px){ .gal-grid{grid-template-columns:repeat(2,1fr) !important;} }
+    @media(min-width:861px){ .nav-panel{display:none !important;} }
+    @media(max-width:760px){ .svc-intro{grid-template-columns:1fr !important;align-items:start !important;} .svc-cards{grid-template-columns:1fr !important;} }
+  </style>
+</helmet>
+<div id="top" style="font-family:'Questrial',sans-serif;color:#241E18;background:#F5F1EA;overflow-x:hidden;-webkit-font-smoothing:antialiased;">
+
+  <div ref="{{ introRef }}" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#F5F1EA;transition:opacity .8s ease;">
+    <img src="assets/logo.png" alt="Aora Beauty Studio" style="width:min(400px,74vw);height:auto;animation:aoraDraw 2s cubic-bezier(.7,.02,.28,1) both;">
+  </div>
+
+  <header style="position:sticky;top:0;z-index:60;padding:14px clamp(12px,3vw,28px);">
+    <nav style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:rgba(255,255,255,0.42);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,0.6);border-radius:22px;box-shadow:0 10px 34px -16px rgba(60,45,25,.4);padding:10px clamp(16px,3vw,26px);">
+      <a href="#top" style="display:flex;align-items:center;"><img src="assets/logo.png" alt="Aora Beauty Studio" style="height:42px;width:auto;display:block;"></a>
+      <div class="nav-desktop" style="display:flex;align-items:center;gap:clamp(12px,2.1vw,28px);">
+        <a href="#o-nama" style="color:#2E2822;text-decoration:none;font-size:14px;letter-spacing:.02em;transition:color .2s;" style-hover="color:#B08D57;">O nama</a>
+        <a href="#cenovnik" style="color:#2E2822;text-decoration:none;font-size:14px;letter-spacing:.02em;transition:color .2s;" style-hover="color:#B08D57;">Cenovnik</a>
+        <a href="#galerija" style="color:#2E2822;text-decoration:none;font-size:14px;letter-spacing:.02em;transition:color .2s;" style-hover="color:#B08D57;">Galerija</a>
+        <a href="#kontakt" style="color:#2E2822;text-decoration:none;font-size:14px;letter-spacing:.02em;transition:color .2s;" style-hover="color:#B08D57;">Kontakt</a>
+        <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;background:rgba(42,32,26,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.32);color:#fff;text-decoration:none;padding:11px 22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border-radius:999px;transition:border-color .25s;" style-hover="border-color:rgba(255,255,255,.6);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
+      </div>
+      <button class="nav-burger" onClick="{{ toggleMenu }}" aria-label="Meni" aria-expanded="{{ menuExpanded }}">
+        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg></sc-if>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></sc-if>
+      </button>
+      <div class="nav-panel" style="{{ menuPanelStyle }}">
+        <a href="#o-nama" onClick="{{ closeMenu }}">O nama</a>
+        <a href="#cenovnik" onClick="{{ closeMenu }}">Cenovnik</a>
+        <a href="#galerija" onClick="{{ closeMenu }}">Galerija</a>
+        <a href="#kontakt" onClick="{{ closeMenu }}">Kontakt</a>
+        <a href="#zakazivanje" class="cta" onClick="{{ closeMenu }}">Zakažite termin</a>
+      </div>
+    </nav>
+  </header>
+
+  <section style="position:relative;height:100vh;min-height:560px;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:-72px;overflow:hidden;background:#EDE6DB;">
+    <video ref="{{ videoRef }}" autoplay="" muted="" loop="" playsinline="" poster="assets/g1.jpg" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.9);transform-origin:center;">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,20,12,.55) 0%,rgba(28,20,12,.30) 42%,rgba(28,20,12,.62) 100%);"></div>
+    <svg style="position:absolute;left:0;bottom:-1px;width:100%;height:clamp(46px,7vw,104px);display:block;pointer-events:none;z-index:2;" viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,0 Q720,120 1440,0 L1440,100 L0,100 Z" fill="#F5F1EA"></path></svg>
+    <div style="position:relative;z-index:2;width:100%;max-width:900px;margin:0 auto;padding:clamp(110px,12vw,140px) clamp(18px,5vw,48px) clamp(80px,10vw,120px);">
+      <div style="animation:fadeUp .9s ease both;">
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.36em;color:rgba(255,255,255,.9);">
+          Aora · Beauty Studio
+        </div>
+        <h1 style="font-family:'Questrial',sans-serif;font-weight:500;color:#fff;font-size:clamp(46px,7.4vw,92px);line-height:1.02;margin:24px 0 0;letter-spacing:.01em;"><span style="font-weight:700;">Tvoj trenutak</span> lepote</h1>
+        <p style="color:rgba(255,255,255,.86);font-size:clamp(16px,1.55vw,19px);line-height:1.75;max-width:46ch;margin:24px auto 0;font-weight:300;">Sterilan i jednokratan pribor, profesionalna kozmetika i pažnja posvećena samo vama - vaš kutak mira i lepote u srcu grada.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
+          <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.6);color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:12px;transition:border-color .25s;" style-hover="border-color:#fff;"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
+          <a href="#cenovnik" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;border-radius:12px;backdrop-filter:blur(4px);transition:.25s;" style-hover="background:rgba(255,255,255,.22);border-color:#fff;">Pogledajte usluge</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="o-nama" style="position:relative;scroll-margin-top:96px;background:#FBF9F5;padding:clamp(72px,10vw,128px) clamp(18px,5vw,48px) clamp(64px,9vw,120px);">
+    <svg style="position:absolute;left:0;top:1px;width:100%;height:clamp(34px,5vw,60px);transform:translateY(-100%);display:block;pointer-events:none;" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,60 L0,30 C480,-10 960,70 1440,30 L1440,60 Z" fill="#FBF9F5"></path></svg>
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">O nama</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1.08;margin:20px 0 0;color:#241E18;">Mesto gde se <span style="font-weight:700;">opustiš</span> i <span style="font-weight:700;">prepustiš.</span></h2>
+        <p style="font-size:17px;line-height:1.85;color:#6B635A;font-weight:300;margin:24px 0 0;max-width:58ch;">Aora je mesto gde se lepota i briga o sebi sreću sa toplinom i posvećenošću. Verujemo da svaki gost zaslužuje potpunu pažnju - zato svaki tretman prilagođavamo baš vama, u prijatnom i mirnom ambijentu.</p>
+        <p style="font-size:17px;line-height:1.85;color:#6B635A;font-weight:300;margin:16px 0 0;max-width:58ch;">Radimo isključivo sa proverenom profesionalnom kozmetikom, a higijena nam je uvek na prvom mestu.</p>
+      </div>
+      <div style="position:relative;">
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(60,45,25,.5);">
+          <img src="assets/about.jpg" alt="Enterijer Aora studija" style="display:block;width:100%;height:clamp(340px,46vw,520px);object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zasto" style="position:relative;overflow:hidden;scroll-margin-top:96px;padding:clamp(72px,10vw,128px) clamp(18px,5vw,48px);">
+    <svg style="position:absolute;top:6%;left:-8%;width:52%;height:auto;opacity:.5;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#F3E7E7" d="M300,60c90,-30,190,20,220,110c30,90,-10,180,-90,230c-80,50,-190,40,-260,-30c-70,-70,-80,-190,-20,-260c30,-35,80,-40,150,-50Z"></path></svg>
+    <svg style="position:absolute;bottom:2%;right:-6%;width:46%;height:auto;opacity:.55;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#E7ECE4" d="M330,58c118,2,182,92,176,196c-6,104,-96,150,-206,168c-96,16,-176,-44,-206,-150c-26,-92,18,-176,120,-198c40,-9,78,-17,116,-16Z"></path></svg>
+    <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;max-width:640px;margin:0 auto clamp(48px,7vw,88px);">
+        <div style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#9A7B45;">Zašto Aora</div>
+        <h2 style="font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1.08;margin:16px 0 0;color:#241E18;">Ono što nas <span style="font-weight:700;">izdvaja</span></h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(48px,7vw,96px);">
+        <sc-for list="{{ whyItems }}" as="w" hint-placeholder-count="4">
+          <div data-why-idx="{{ w.idx }}" style="{{ w.boxStyle }}">
+            <div style="display:flex;align-items:flex-start;gap:clamp(18px,3vw,40px);width:min(520px,58%);">
+              <span style="font-family:'Questrial',sans-serif;font-size:clamp(56px,8vw,104px);line-height:.8;color:#DDB4AE;flex:none;">{{ w.num }}</span>
+              <div style="padding-top:6px;">
+                <h3 style="font-weight:400;font-size:clamp(22px,2.6vw,30px);letter-spacing:.02em;text-transform:uppercase;margin:0;color:#241E18;">{{ w.title }}</h3>
+                <div style="font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;margin:10px 0 0;">{{ w.sub }}</div>
+                <p style="font-size:16px;line-height:1.75;color:#6B635A;margin:16px 0 0;">{{ w.text }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="galerija" style="scroll-margin-top:96px;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="text-align:center;max-width:640px;margin:0 auto;">
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Galerija</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:18px 0 0;color:#241E18;">Trenuci iz našeg studija</h2>
+      </div>
+      <div class="gal-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(40px,5vw,56px);">
+        <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
+          <div style="overflow:hidden;aspect-ratio:1/1;background:#EAE3D7;border-radius:18px;">
+            <img src="{{ g.src }}" alt="{{ g.alt }}" style="display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;" style-hover="transform:scale(1.07);">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}">
+  <section id="cenovnik" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;">
+        <div style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#9A7B45;">Cenovnik</div>
+        <h2 style="font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:16px 0 0;color:#241E18;">Cene tretmana</h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;margin-top:clamp(32px,4vw,48px);">
+        <sc-for list="{{ priceTabs }}" as="t" hint-placeholder-count="6">
+          <span onClick="{{ t.select }}" style="cursor:pointer;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:5px;border-bottom:2px solid {{ t.underline }};color:{{ t.color }};transition:color .2s,border-color .2s;">{{ t.title }}</span>
+        </sc-for>
+      </div>
+      <h3 style="text-align:center;font-weight:400;font-size:clamp(24px,3vw,34px);letter-spacing:.02em;color:#241E18;margin:clamp(40px,5vw,60px) 0 clamp(30px,4vw,44px);text-transform:uppercase;">{{ activeCat.title }}</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,4vw,56px);">
+        <sc-for list="{{ activeCat.items }}" as="it" hint-placeholder-count="6">
+          <div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;">
+              <span style="font-size:17px;font-weight:400;color:#241E18;">{{ it.name }}</span>
+              <span style="font-size:16px;color:#241E18;white-space:nowrap;">{{ it.price }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:5px;">
+              <sc-if value="{{ it.note }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#9A8E7E;">{{ it.note }}</span></sc-if>
+              <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;border:1px solid #D8C7A8;padding:2px 9px;border-radius:999px;">Popularno</span></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;margin:clamp(48px,6vw,72px) 0 0;"><span style="width:96px;height:3px;background:#241E18;"></span></div>
+      <p style="text-align:center;font-size:14px;color:#8A8073;margin:24px auto 0;max-width:44ch;">*Cene su okvirne i mogu da variraju u zavisnosti od dužine i detalja tretmana. Kompletan cenovnik potvrđujemo prilikom zakazivanja.</p>
+      <div style="text-align:center;margin-top:36px;"><a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;display:inline-block;background:rgba(42,32,26,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(42,32,26,.85);color:#fff;text-decoration:none;padding:18px 46px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;transition:background .25s;" style-hover="background:rgba(42,32,26,1);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a></div>
+    </div>
+  </section>
+  </sc-if>
+
+
+  <sc-if value="{{ showVoucher }}" hint-placeholder-val="{{ true }}">
+  <section id="vaucer" style="position:relative;scroll-margin-top:96px;background:#211A14;color:#F3ECE1;padding:clamp(72px,9vw,116px) clamp(18px,5vw,48px);">
+    <svg style="position:absolute;left:0;top:1px;width:100%;height:clamp(34px,5vw,60px);transform:translateY(-100%);display:block;pointer-events:none;" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,60 L0,30 C480,-10 960,70 1440,30 L1440,60 Z" fill="#211A14"></path></svg>
+    <svg style="position:absolute;left:0;bottom:1px;width:100%;height:clamp(34px,5vw,60px);transform:translateY(100%);display:block;pointer-events:none;" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,0 L0,30 C480,70 960,-10 1440,30 L1440,0 Z" fill="#FBF9F5"></path></svg>
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,64px);align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#D3B27E;font-weight:500;">Poklon vaučer</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(30px,4.2vw,50px);line-height:1.08;margin:20px 0 0;color:#fff;">Najlepši poklon za nekog posebnog</h2>
+        <p style="font-size:16.5px;line-height:1.8;color:rgba(243,236,225,.72);font-weight:300;margin:20px 0 0;max-width:46ch;">Podarite trenutak opuštanja i lepote. Aora poklon vaučer je pažnja koja se pamti - za rođendan, godišnjicu ili prosto „bez razloga“.</p>
+        <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;display:inline-block;margin-top:34px;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.6);color:#fff;text-decoration:none;padding:15px 30px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:12px;transition:border-color .25s;" style-hover="border-color:#fff;"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zatražite vaučer</span></a>
+      </div>
+      <div style="border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);">
+        <img src="assets/voucher.jpg" alt="Aora poklon vaučer" style="display:block;width:100%;height:clamp(300px,38vw,440px);object-fit:cover;">
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ true }}">
+  <section id="utisci" style="position:relative;scroll-margin-top:96px;background:#FBF9F5;padding:clamp(52px,7vw,92px) 0 clamp(56px,8vw,104px);overflow:hidden;">
+    <div style="position:absolute;top:clamp(52px,7vw,92px);left:50%;transform:translateX(-50%);width:min(1080px,calc(100% - 36px));height:clamp(250px,30vw,352px);background:#fff;border-radius:32px;box-shadow:0 44px 90px -56px rgba(60,45,25,.45);overflow:hidden;z-index:0;">
+      <span style="position:absolute;left:clamp(24px,4vw,64px);top:clamp(28px,4vw,58px);font-family:Georgia,'Times New Roman',serif;font-size:clamp(120px,15vw,180px);line-height:.7;color:#F3EBDD;user-select:none;pointer-events:none;">“</span>
+      <div style="position:absolute;left:0;right:0;top:clamp(64px,9vw,104px);text-align:center;padding:0 20px;">
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(28px,4vw,46px);line-height:1.08;margin:0;color:#241E18;">Utisci naših klijenata</h2>
+        <div style="width:88px;height:3px;border-radius:2px;background:#DDB4AE;margin:20px auto 0;"></div>
+      </div>
+    </div>
+    <div style="position:relative;z-index:1;margin-top:clamp(150px,19vw,224px);display:flex;width:max-content;padding:10px 0;animation:aoraMarquee 46s linear infinite;" style-hover="animation-play-state:paused;">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="4">
+        <div style="flex:none;width:clamp(258px,25vw,298px);margin-right:clamp(18px,2vw,28px);background:#fff;border:1px solid #EFE7DA;border-radius:18px;padding:32px 26px 34px;box-shadow:0 24px 48px -34px rgba(60,45,25,.5);">
+          <div style="width:64px;height:64px;border-radius:50%;background:{{ t.avatarBg }};margin:0 auto;display:flex;align-items:center;justify-content:center;color:#C6B79E;box-shadow:0 8px 18px -10px rgba(60,45,25,.55);"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"></path></svg></div>
+          <div style="text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9A7B45;margin-top:16px;">{{ t.name }}</div>
+          <div style="display:flex;gap:10px;margin-top:20px;">
+            <span style="flex:none;font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:.72;color:#DDB4AE;user-select:none;">“</span>
+            <p style="font-family:'Questrial',sans-serif;font-size:14.5px;line-height:1.66;color:#7A7167;margin:0;text-wrap:pretty;">{{ t.quote }}</p>
+          </div>
+        </div>
+      </sc-for>
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="4">
+        <div aria-hidden="true" style="flex:none;width:clamp(258px,25vw,298px);margin-right:clamp(18px,2vw,28px);background:#fff;border:1px solid #EFE7DA;border-radius:18px;padding:32px 26px 34px;box-shadow:0 24px 48px -34px rgba(60,45,25,.5);">
+          <div style="width:64px;height:64px;border-radius:50%;background:{{ t.avatarBg }};margin:0 auto;display:flex;align-items:center;justify-content:center;color:#C6B79E;box-shadow:0 8px 18px -10px rgba(60,45,25,.55);"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"></path></svg></div>
+          <div style="text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9A7B45;margin-top:16px;">{{ t.name }}</div>
+          <div style="display:flex;gap:10px;margin-top:20px;">
+            <span style="flex:none;font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:.72;color:#DDB4AE;user-select:none;">“</span>
+            <p style="font-family:'Questrial',sans-serif;font-size:14.5px;line-height:1.66;color:#7A7167;margin:0;text-wrap:pretty;">{{ t.quote }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <section id="zakazivanje" style="position:relative;scroll-margin-top:96px;background:#F5F1EA;padding:clamp(72px,10vw,120px) clamp(18px,5vw,48px);">
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,80px);align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Zakazivanje</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(32px,4.6vw,58px);line-height:1.08;margin:22px 0 0;color:#241E18;">Spremni za svoj trenutak?<br><span style="color:#B08D57;">Rezervišite termin.</span></h2>
+        <p style="font-size:16.5px;line-height:1.8;color:#6B635A;font-weight:300;margin:22px 0 0;max-width:44ch;">Popunite formu i javićemo vam se radi potvrde termina. Za brže zakazivanje, slobodno nas pozovite ili pišite.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-top:34px;">
+          <a href="tel:0692054775" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16px;">069 2054 775</span></span></a>
+          <div style="display:flex;align-items:center;gap:14px;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16px;">Bulevar Evrope 13</span></span></div>
+          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16px;">@aora.beautystudio</span></span></a>
+        </div>
+      </div>
+      <div>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:40px 10px;border:1px solid #E4DACB;border-radius:28px;">
+            <span style="display:inline-flex;width:64px;height:64px;border-radius:50%;background:#F1E7D5;align-items:center;justify-content:center;color:#B08D57;margin-bottom:18px;"><i data-lucide="check" style="width:30px;height:30px;"></i></span>
+            <h3 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:28px;margin:0;color:#241E18;">Hvala vam!</h3>
+            <p style="font-size:15.5px;line-height:1.7;color:#6B635A;font-weight:300;margin:12px 0 0;">Vaš zahtev je poslat. Javićemo vam se u najkraćem roku radi potvrde termina.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <input type="text" required="" aria-label="Ime i prezime" value="{{ form.name }}" onChange="{{ setName }}" placeholder="Ime i prezime" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+            <input type="tel" required="" aria-label="Telefon" value="{{ form.phone }}" onChange="{{ setPhone }}" placeholder="Telefon" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+          </div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <select required="" aria-label="Usluga" value="{{ form.service }}" onChange="{{ setService }}" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+              <option value="">Izaberite uslugu</option>
+              <option>Nega lica</option>
+              <option>Tretmani tela</option>
+              <option>Masaže</option>
+              <option>Depilacija</option>
+              <option>Manikir i pedikir</option>
+              <option>Trepavice i obrve</option>
+              <option>Šminka</option>
+              <option>Poklon vaučer</option>
+              <option>Ostalo</option>
+            </select>
+            <input type="date" aria-label="Željeni datum" value="{{ form.date }}" onChange="{{ setDate }}" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-end;">
+            <textarea rows="3" aria-label="Napomena" value="{{ form.note }}" onChange="{{ setNote }}" placeholder="Napomena - željeno vreme ili dodatne informacije" style="flex:1;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:26px;outline:none;resize:vertical;min-height:96px;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;"></textarea>
+            <button type="submit" aria-label="Pošaljite zahtev" style="flex:none;width:62px;height:62px;border-radius:50%;background:#DDB4AE;color:#3A2420;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s,transform .25s;" style-hover="background:#D0A29B;transform:translateY(-2px);"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></button>
+          </div>
+        </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,64px);align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Kontakt i lokacija</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:20px 0 0;color:#241E18;">Posetite nas</h2>
+        <div style="display:flex;flex-direction:column;gap:22px;margin-top:32px;">
+          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16.5px;color:#3A322B;">Bulevar Evrope 13</span></span></div>
+          <a href="tel:0692054775" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16.5px;">069 2054 775</span></span></a>
+          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="at-sign" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16.5px;">@aora.beautystudio</span></span></a>
+          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="clock" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Radno vreme</span><span style="font-size:16.5px;color:#3A322B;">Pon - Pet 09 - 20h · Sub 09 -15h</span></span></div>
+        </div>
+      </div>
+      <div style="order:-1;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(60,45,25,.5);">
+        <img src="assets/contact.jpg" alt="Aora studio" style="display:block;width:100%;height:clamp(300px,38vw,440px);object-fit:cover;">
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="scroll-margin-top:96px;background:#E7ECE4;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+    <div style="max-width:820px;margin:0 auto;">
+      <div style="text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Česta pitanja</div>
+        <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:18px 0 0;color:#241E18;">Sve što vas zanima</h2>
+      </div>
+      <div style="margin-top:clamp(36px,4vw,52px);display:flex;flex-direction:column;gap:14px;">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="border:1px solid #D7DED2;background:#FCFBF8;border-radius:18px;overflow:hidden;">
+            <div onClick="{{ f.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;cursor:pointer;">
+              <span style="font-family:'Questrial',sans-serif;font-weight:600;font-size:21px;color:#241E18;">{{ f.q }}</span>
+              <i data-lucide="chevron-down" style="width:20px;height:20px;flex:none;color:#B08D57;transition:transform .3s;transform:{{ f.chevron }};"></i>
+            </div>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:15.5px;line-height:1.8;color:#6B635A;font-weight:300;margin:0;padding:0 24px 24px;max-width:64ch;">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:#F5F1EA;border-top:1px solid rgba(176,141,87,.18);">
+    <div class="ftr-grid" style="position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(24px,5vw,64px);align-items:center;padding:clamp(56px,7vw,88px) clamp(20px,5vw,48px) clamp(44px,5vw,64px);">
+      <div>
+        <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#B08D57;margin-bottom:20px;">Brzi linkovi</div>
+        <div style="display:flex;flex-direction:column;gap:13px;"><a href="#o-nama" class="fl">O nama</a><a href="#cenovnik" class="fl">Cenovnik</a><a href="#galerija" class="fl">Galerija</a><a href="tel:0692054775" class="fl">069 2054 775</a></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:24px;">
+        <div class="ftr-logo" style="position:relative;width:210px;height:176px;display:flex;align-items:center;justify-content:center;">
+          <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 200 170" fill="none" stroke="#B08D57" stroke-width="1.4"><path d="M100,10 C150,6 192,42 186,90 C180,138 138,164 92,160 C42,156 12,120 16,78 C20,34 50,14 100,10 Z"></path></svg>
+          <img src="assets/logo.png" alt="Aora Beauty Studio" style="position:relative;width:140px;height:auto;">
+        </div>
+        <div style="display:flex;gap:22px;"><a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" class="fico" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a href="tel:0692054775" class="fico" aria-label="Telefon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a><a href="#zakazivanje" class="fico" aria-label="Zakažite termin"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18M8 2v4M16 2v4"></path><path d="m9 15 2 2 4-4"></path></svg></a></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#B08D57;margin-bottom:20px;">Usluge</div>
+        <div style="display:flex;flex-direction:column;gap:13px;"><a href="#cenovnik" class="fl">Nega lica</a><a href="#cenovnik" class="fl">Masaže</a><a href="#cenovnik" class="fl">Manikir i pedikir</a><a href="#cenovnik" class="fl">Šminka</a><a href="#zakazivanje" class="fl">Depilacija</a></div>
+      </div>
+    </div>
+    <div style="position:relative;z-index:2;background:#DDB4AE;text-align:center;padding:18px 20px;font-size:13px;letter-spacing:.05em;color:#4A3B33;">© {{ year }} Aora Beauty Studio · Bulevar Evrope 13 · Sva prava zadržana</div>
+  </footer>
+
+  <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:fixed;overflow:hidden;bottom:22px;right:22px;z-index:90;background:rgba(42,32,26,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.32);color:#fff;text-decoration:none;padding:15px 28px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:999px;box-shadow:0 14px 34px -12px rgba(60,45,25,.7);transition:transform .25s;" style-hover="transform:translateY(-2px);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekcije&quot;},&quot;showVoucher&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekcije&quot;},&quot;showTestimonials&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekcije&quot;}}">
+class Component extends DCLogic {
+  state = {
+    form: { name: '', phone: '', service: '', date: '', note: '' },
+    menuOpen: false,
+    submitted: false,
+    faqOpen: 0,
+    activeSvc: 0,
+    activeCat: 0,
+    revealed: {}
+  };
+  scrollerRef = React.createRef();
+  videoRef = React.createRef();
+  introRef = React.createRef();
+  componentDidMount() {
+    this.refreshIcons();
+    const intro = this.introRef.current;
+    if (intro) {
+      setTimeout(() => { intro.style.opacity = '0'; intro.style.pointerEvents = 'none'; }, 2350);
+      setTimeout(() => { intro.style.display = 'none'; }, 3200);
+    }
+    const v = this.videoRef.current;
+    if (v) {
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true;
+      const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      tryPlay();
+      v.addEventListener('loadeddata', tryPlay);
+      v.addEventListener('canplay', tryPlay);
+      v.addEventListener('ended', () => { v.currentTime = 0; tryPlay(); });
+    }
+    setTimeout(() => this.componentDidMount_reveal(), 60);
+  }
+  componentDidUpdate() { this.refreshIcons(); }
+  componentDidMount_reveal() {
+    const nodes = document.querySelectorAll('[data-why-idx]');
+    if (!nodes.length || !window.IntersectionObserver) {
+      const all = {}; nodes.forEach(n => all[n.getAttribute('data-why-idx')] = true); this.setState({ revealed: all }); return;
+    }
+    this._obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = e.target.getAttribute('data-why-idx');
+          this.setState(s => ({ revealed: { ...s.revealed, [idx]: true } }));
+          this._obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    nodes.forEach(n => this._obs.observe(n));
+  }
+  refreshIcons() {
+    if (window.lucide && window.lucide.createIcons) {
+      try { window.lucide.createIcons(); } catch (e) {}
+    }
+  }
+  scrollSvc(dir) {
+    const el = this.scrollerRef.current;
+    if (el) el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.7, 340), behavior: 'smooth' });
+  }
+  setField(k) {
+    return (e) => {
+      const v = e.target.value;
+      this.setState(s => ({ form: { ...s.form, [k]: v } }));
+    };
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState({ submitted: true });
+  }
+  toggleFaq(i) {
+    return () => this.setState(s => ({ faqOpen: s.faqOpen === i ? -1 : i }));
+  }
+  toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  closeMenu = () => this.setState({ menuOpen: false });
+  renderVals() {
+    const svcData = [
+      { title: 'Manikir i pedikir', img: 'assets/svc-manikir.jpg', desc: 'Trajni lak, gel nadogradnja i nega noktiju u prijatnom ambijentu.' },
+      { title: 'Nega lica', img: 'assets/svc-lice.jpg', desc: 'Klasične i dubinske nege, hidratacija i anti-age tretmani prilagođeni vašoj koži.' },
+      { title: 'Masaže', img: 'assets/svc-masaza.jpg', desc: 'Relax, sportske i masaže lica koje opuštaju i telo i um.' },
+      { title: 'Šminka', img: 'assets/svc-sminka.jpg', desc: 'Dnevna, večernja i svečana šminka za svaku posebnu priliku.' }
+    ];
+    const serviceCards = svcData.map(s => ({ title: s.title, img: s.img }));
+    const ai = this.state.activeSvc;
+    const n = svcData.length;
+    const services = svcData.map((s, i) => ({
+      title: s.title,
+      select: () => this.setState({ activeSvc: i }),
+      color: i === ai ? '#241E18' : '#9A8E7E',
+      weight: i === ai ? 700 : 400,
+      underline: i === ai ? '#241E18' : 'transparent'
+    }));
+    const whyRaw = [
+      { num: '1/', title: 'Čistoća', sub: 'Sterilan i jednokratan pribor', text: 'Higijena nam je uvek na prvom mestu - pribor je sterilan i, gde god je moguće, jednokratan za svaki tretman.' },
+      { num: '2/', title: 'Kvalitet', sub: 'Profesionalna kozmetika', text: 'Radimo isključivo sa proverenom kozmetikom brendova Ella Baché i Thalgo.' },
+      { num: '3/', title: 'Pažnja', sub: 'Individualan pristup', text: 'Svaki tretman prilagođavamo baš tebi, u miru i toplini našeg studija.' },
+      { num: '4/', title: 'Iskustvo', sub: 'Stručan tim', text: 'Godine iskustva i oko za detalj - rezultat kojem se rado vraćaš.' }
+    ];
+    const whyItems = whyRaw.map((w, i) => {
+      const vis = !!this.state.revealed[i];
+      return { ...w, idx: i, boxStyle: {
+        display: 'flex',
+        justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+        opacity: vis ? 1 : 0,
+        transform: vis ? 'none' : 'translateY(38px)',
+        transition: 'opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)'
+      } };
+    });
+    const active = svcData[ai];
+    const peek1 = svcData[(ai + 1) % n].img;
+    const peek2 = svcData[(ai + 2) % n].img;
+    const mkLayer = (img, style, key) => React.createElement('div', { key, style }, React.createElement('img', { src: img, alt: '', style: { width: '100%', height: '100%', objectFit: 'cover' } }));
+    const deck = React.createElement('div', { style: { position: 'absolute', inset: 0 } }, [
+      mkLayer(peek2, { position: 'absolute', top: '6%', left: '50%', width: '74%', height: '88%', transform: 'translateX(-38%) rotate(6deg)', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 20px 44px -30px rgba(60,45,25,.6)', opacity: .7 }, 'p2'),
+      mkLayer(peek1, { position: 'absolute', top: '3%', left: '50%', width: '76%', height: '92%', transform: 'translateX(-46%) rotate(3deg)', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 22px 48px -30px rgba(60,45,25,.6)', opacity: .85 }, 'p1'),
+      mkLayer(active.img, { key: 'f-' + ai, position: 'absolute', top: 0, left: '50%', width: '80%', height: '100%', transform: 'translateX(-56%)', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 34px 70px -34px rgba(60,45,25,.7)', animation: 'svcEmerge .6s cubic-bezier(.2,.7,.2,1) both' }, 'f-' + ai)
+    ]);
+    const gallery = [
+      { src: 'assets/hero.jpg', alt: 'Masaža' },
+      { src: 'assets/g2.jpg', alt: 'Šminka' },
+      { src: 'assets/g3.jpg', alt: 'Lash lift' },
+      { src: 'assets/g4.jpg', alt: 'Trajni lak' },
+      { src: 'assets/g5.jpg', alt: 'Tretman tela' },
+      { src: 'assets/g6.jpg', alt: 'Šminkerski kutak' },
+      { src: 'assets/g7.jpg', alt: 'Masaža' },
+      { src: 'assets/proizvod.jpg', alt: 'Ella Baché Body Shape krema' }
+    ];
+    const priceCats = [
+      { title: 'Tretmani lica', items: [
+        { name: 'Higijenski tretman lica', min: '90 min', price: '3.500' },
+        { name: 'Dubinska hidratacija + regeneracija lica', min: '75 min', price: '4.000' },
+        { name: 'Antiage tretman lica + revitalizacija lica', min: '75 min', price: '4.000' },
+        { name: 'Mikronizirane morske alge tretman lica', min: '75 min', price: '4.000' },
+        { name: 'Detox + ujednačavanje tena lica', min: '75 min', price: '4.000' },
+        { name: 'Čišćenje lica – dodatak uz uslugu', min: '30 min', price: '1.000' },
+        { name: 'Tretman leđa + detoksikacija', min: '60 min', price: '2.500' }
+      ] },
+      { title: 'Tretmani tela', items: [
+        { name: 'Gipsane bermude L', min: '90 min', price: '4.000' },
+        { name: 'Gipsane bermude M', min: '90 min', price: '3.500' },
+        { name: 'Gipsane bermude S', min: '90 min', price: '3.000' },
+        { name: 'Tretman morskim algama', min: '90 min', price: '2.500' },
+        { name: 'Frigi Thalgo tretman tela', min: '90 min', price: '2.500' },
+        { name: 'Delipidex termo tretman tela', min: '60 min', price: '2.500' }
+      ] },
+      { title: 'Masaže za dame', items: [
+        { name: 'Relax masaža + masaža glave / lica gratis', min: '60 min', price: '2.500' },
+        { name: 'Relax masaža', min: '90 min', price: '3.200' },
+        { name: 'Parcijalna masaža leđa + vrat', min: '45 min', price: '2.000' },
+        { name: 'Anticelulit masaža', min: '45 min', price: '1.500', pop: true }
+      ] },
+      { title: 'Manikir', items: [
+        { name: 'Kombinovani manikir', min: '60 min', price: '1.200' },
+        { name: 'Gel lak – ruke', min: '120 min', price: '2.500', pop: true },
+        { name: 'Ojačavanje noktiju rubber bazom', min: '120 min', price: '2.500', pop: true },
+        { name: 'Ojačavanje prirodnih noktiju gelom – S dužina', min: '120 min', price: '2.700' },
+        { name: 'Ojačavanje prirodnih noktiju gelom – M dužina', min: '150 min', price: '3.000' },
+        { name: 'Ojačavanje prirodnih noktiju gelom – L dužina', min: '150 min', price: '3.200' },
+        { name: 'Ojačavanje prirodnih noktiju gelom – XL dužina', min: '180 min', price: '3.700' },
+        { name: 'Korekcija izlivanja noktiju gelom – S dužina', min: '120 min', price: '2.700' },
+        { name: 'Korekcija izlivanja noktiju gelom – M dužina', min: '150 min', price: '3.000' },
+        { name: 'Korekcija izlivanja noktiju gelom – L dužina', min: '150 min', price: '3.200' },
+        { name: 'Korekcija izlivanja noktiju gelom – XL dužina', min: '180 min', price: '3.700' },
+        { name: 'Izlivanje noktiju gelom – S dužina', min: '150 min', price: '3.000' },
+        { name: 'Izlivanje noktiju gelom – M dužina', min: '150 min', price: '3.200' },
+        { name: 'Izlivanje noktiju gelom – L dužina', min: '150 min', price: '3.500' },
+        { name: 'Izlivanje noktiju gelom – XL dužina', min: '180 min', price: '4.000' },
+        { name: 'Skidanje materijala – doplata uz uslugu', min: '30 min', price: '1.200' },
+        { name: 'Korekcija tuđeg rada – doplata uz uslugu', min: '30 min', price: '500' },
+        { name: 'Lakiranje noktiju – doplata uz uslugu', min: '30 min', price: '500' },
+        { name: 'Građeni french – po noktu', min: '15 min', price: '300' },
+        { name: 'Ukrašavanje noktiju komplikovaniji dizajn – doplata', min: '30 min', price: '500' }
+      ] },
+      { title: 'Pedikir', items: [
+        { name: 'Suvi ruski pedikir profi diskovima', min: '60 min', price: '2.000' },
+        { name: 'Collagen lux spa pedikir', min: '60 min', price: '2.500' },
+        { name: 'Gel lak – noge', min: '60 min', price: '2.000', pop: true },
+        { name: 'Suvi ruski pedikir + gel lak', min: '90 min', price: '3.500', pop: true },
+        { name: 'Collagen lux spa pedikir + gel lak', min: '120 min', price: '4.000' },
+        { name: 'Skidanje materijala – doplata uz uslugu', min: '15 min', price: '1.000' },
+        { name: 'Lakiranje noktiju – doplata uz uslugu', min: '30 min', price: '500' }
+      ] },
+      { title: 'Depilacija za dame', items: [
+        { name: 'Depilacija lica toplim voskom', min: '20 min', price: '1.000' },
+        { name: 'Oblikovanje obrva voskom / pincetom', min: '30 min', price: '1.000' },
+        { name: 'Korekcija obrva voskom / pincetom', min: '20 min', price: '500' },
+        { name: 'Depilacija celih nogu hladnim voskom', min: '30 min', price: '1.500' },
+        { name: 'Depilacija pola nogu hladnim voskom', min: '20 min', price: '1.000' },
+        { name: 'Brazilska depilacija hladnim / toplim voskom', min: '30 min', price: '1.000' },
+        { name: 'Brazilska depilacija šećernom pastom', min: '30 min', price: '1.200', pop: true },
+        { name: 'Cele noge + brazilska depilacija toplim voskom', min: '60 min', price: '2.000', pop: true },
+        { name: 'Depilacija celih ruku hladnim voskom', min: '20 min', price: '800' },
+        { name: 'Depilacija pazuha toplim voskom', min: '10 min', price: '500' },
+        { name: 'Depilacija nausnica / nosa / ušiju toplim voskom', min: '15 min', price: '400' }
+      ] },
+      { title: 'Depilacija za muškarce', items: [
+        { name: 'Depilacija leđa hladnim voskom', min: '30 min', price: '1.200' },
+        { name: 'Depilacija grudi hladnim voskom', min: '30 min', price: '1.200' },
+        { name: 'Depilacija leđa + grudi hladnim voskom', min: '50 min', price: '2.000' },
+        { name: 'Depilacija nosa toplim voskom', min: '15 min', price: '400' }
+      ] },
+      { title: 'Trepavice', items: [
+        { name: 'Brow lift', min: '60 min', price: '2.500' },
+        { name: 'Lash lift', min: '60 min', price: '2.500' },
+        { name: 'Combo lash + brow lift', min: '90 min', price: '4.000' }
+      ] },
+      { title: 'Profesionalno šminkanje', items: [
+        { name: 'Profesionalno šminkanje', min: '60 min', price: '4.000' }
+      ] }
+    ];
+    const aci = this.state.activeCat;
+    const priceTabs = priceCats.map((c, i) => ({
+      title: c.title,
+      select: () => this.setState({ activeCat: i }),
+      color: i === aci ? '#241E18' : '#9A8E7E',
+      underline: i === aci ? '#241E18' : 'transparent'
+    }));
+    const activeCat = {
+      title: priceCats[aci].title,
+      items: priceCats[aci].items.map(it => ({ name: it.name, price: it.price + ' din', note: it.note || '' }))
+    };
+    const testimonials = [
+      { quote: 'Ovo mi je postalo omiljeno mesto. Ambijent je pretopao, a lice mi se preporodilo posle samo dva dolaska.', name: 'Milica J.', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', avatarBg: '#F1E7D5' },
+      { quote: 'Najbolji lash lift u gradu! Devojke su ljubazne i istinski profesionalne.', name: 'Ana T.', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', avatarBg: '#EBD9D5' },
+      { quote: 'Pažnja na detalje i higijenu je na najvišem nivou. Moje omiljeno mesto za predah.', name: 'Jovana R.', avatar: 'https://randomuser.me/api/portraits/women/65.jpg', avatarBg: '#E4E9E2' },
+      { quote: 'Nega lica je bila fenomenalna — koža mi blista, a ceo tretman je bio čista relaksacija.', name: 'Teodora M.', avatar: 'https://randomuser.me/api/portraits/women/90.jpg', avatarBg: '#F1E7D5' },
+      { quote: 'Uvek izađem opuštena i lepša nego što sam ušla. Preporuka od srca svima!', name: 'Sara P.', avatar: 'https://randomuser.me/api/portraits/women/12.jpg', avatarBg: '#EBD9D5' },
+      { quote: 'Profesionalnost, toplina i vrhunska usluga. Ne bih menjala Aoru ni za šta.', name: 'Katarina V.', avatar: 'https://randomuser.me/api/portraits/women/33.jpg', avatarBg: '#E4E9E2' }
+    ];
+    const rawFaqs = [
+      { q: 'Da li je pribor sterilan i jednokratan?', a: 'Da. Higijena nam je prioritet - koristimo sterilisan i jednokratan pribor za svaki tretman.' },
+      { q: 'Kako da zakažem termin?', a: 'Popunite formu za zakazivanje na sajtu ili nas pozovite / pišite na 069 2054 775. Javljamo se radi potvrde termina.' },
+      { q: 'Koje brendove kozmetike koristite?', a: 'Radimo sa proverenom profesionalnom kozmetikom brendova Ella Baché i Thalgo.' },
+      { q: 'Nudite li poklon vaučere?', a: 'Da, poklon vaučer je idealan poklon za vaše najdraže. Vaučer možete zatražiti prilikom zakazivanja.' },
+      { q: 'Mogu li da pomerim ili otkažem termin?', a: 'Naravno. Molimo vas da nas obavestite najkasnije 24h ranije kako bismo termin ponudili drugom klijentu.' }
+    ];
+    const faqs = rawFaqs.map((f, i) => ({
+      q: f.q, a: f.a,
+      open: this.state.faqOpen === i,
+      chevron: this.state.faqOpen === i ? 'rotate(180deg)' : 'rotate(0deg)',
+      toggle: this.toggleFaq(i)
+    }));
+    const tN = testimonials.length;
+    const tIdx = ((this.state.tIdx || 0) % tN + tN) % tN;
+    const tActive = testimonials[tIdx];
+    const tLeft = testimonials[(tIdx - 1 + tN) % tN];
+    const tRight = testimonials[(tIdx + 1) % tN];
+    const tStarsFull = '\u2605'.repeat(tActive.rating || 5);
+    const tStarsEmpty = '\u2605'.repeat(5 - (tActive.rating || 5));
+    const tDots = testimonials.map((t, i) => ({
+      n: i + 1,
+      bg: i === tIdx ? '#DDB4AE' : '#E3D9C8',
+      scale: i === tIdx ? 1.25 : 1,
+      go: () => this.setState({ tIdx: i })
+    }));
+    return {
+      services, active, deck, serviceCards, whyItems, gallery, priceTabs, activeCat, testimonials, faqs,
+      menuOpen: this.state.menuOpen,
+      menuClosed: !this.state.menuOpen,
+      menuExpanded: this.state.menuOpen ? 'true' : 'false',
+      menuPanelStyle: { display: this.state.menuOpen ? 'flex' : 'none' },
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      tActive, tLeft, tRight, tStarsFull, tStarsEmpty, tDots,
+      tPrev: () => this.setState(s => ({ tIdx: (s.tIdx - 1 + testimonials.length) % testimonials.length })),
+      tNext: () => this.setState(s => ({ tIdx: (s.tIdx + 1) % testimonials.length })),
+      introRef: this.introRef,
+      glowMove: (e) => { const t=e.currentTarget; const r=t.getBoundingClientRect(); const s=t.querySelector('[data-shine]'); if(s){ s.style.left=(e.clientX-r.left)+'px'; s.style.top=(e.clientY-r.top)+'px'; s.style.opacity='1'; } },
+      glowLeave: (e) => { const s=e.currentTarget.querySelector('[data-shine]'); if(s) s.style.opacity='0'; },
+      form: this.state.form,
+      submitted: this.state.submitted,
+      showForm: !this.state.submitted,
+      onSubmit: (e) => this.handleSubmit(e),
+      setName: this.setField('name'),
+      setPhone: this.setField('phone'),
+      setService: this.setField('service'),
+      setDate: this.setField('date'),
+      setNote: this.setField('note'),
+      scrollerRef: this.scrollerRef,
+      videoRef: this.videoRef,
+      onPrev: () => this.scrollSvc(-1),
+      onNext: () => this.scrollSvc(1),
+      year: 2026,
+      showPrices: this.props.showPrices ?? true,
+      showVoucher: this.props.showVoucher ?? true,
+      showTestimonials: this.props.showTestimonials ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>
