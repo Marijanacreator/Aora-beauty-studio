@@ -10,7 +10,7 @@
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Questrial&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&amp;family=Jost:ital,wght@1,300&amp;display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     *{box-sizing:border-box;}
@@ -40,6 +40,15 @@
     .svc-img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
     .svc-card:hover .svc-img{transform:scale(1.06);}
     .svc-name{margin:16px 6px 0;font-family:'Questrial',sans-serif;font-size:clamp(18px,1.5vw,22px);color:#241E18;letter-spacing:.01em;}
+    .frm-field{position:relative;flex:1 1 180px;}
+    .frm-select,.frm-date{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:46px !important;}
+    .frm-date{cursor:pointer;accent-color:#DDB4AE;}
+    .frm-date.is-empty{color:transparent !important;}
+    .frm-date.is-empty::-webkit-datetime-edit{color:transparent !important;}
+    .frm-date::-webkit-calendar-picker-indicator{opacity:0;position:absolute;left:0;top:0;width:100%;height:100%;cursor:pointer;}
+    .frm-date::-webkit-inner-spin-button{display:none;}
+    .frm-chev{position:absolute;right:20px;top:50%;transform:translateY(-50%);pointer-events:none;color:#B08D57;display:flex;line-height:0;}
+    .frm-dateph{position:absolute;left:22px;top:50%;transform:translateY(-50%);color:#9A8E7E;font-size:15px;font-family:'Questrial',sans-serif;pointer-events:none;}
     .nav-burger{display:none;background:none;border:none;cursor:pointer;color:#2E2822;padding:6px;line-height:0;}
     .nav-panel{display:none;flex-basis:100%;flex-direction:column;gap:2px;padding:10px 2px 4px;margin-top:6px;border-top:1px solid rgba(176,141,87,.2);}
     .nav-panel a{color:#2E2822;text-decoration:none;font-size:15.5px;letter-spacing:.02em;padding:12px 10px;border-radius:12px;transition:background .2s,color .2s;}
@@ -144,7 +153,7 @@
         <sc-for list="{{ whyItems }}" as="w" hint-placeholder-count="4">
           <div data-why-idx="{{ w.idx }}" style="{{ w.boxStyle }}">
             <div style="display:flex;align-items:flex-start;gap:clamp(18px,3vw,40px);width:min(520px,58%);">
-              <span style="font-family:'Questrial',sans-serif;font-size:clamp(56px,8vw,104px);line-height:.8;color:#DDB4AE;flex:none;">{{ w.num }}</span>
+              <span style="font-family:'Jost',sans-serif;font-style:italic;font-weight:300;font-size:clamp(60px,8.4vw,112px);line-height:.8;color:#DDB4AE;flex:none;">{{ w.num }}</span>
               <div style="padding-top:6px;">
                 <h3 style="font-weight:400;font-size:clamp(22px,2.6vw,30px);letter-spacing:.02em;text-transform:uppercase;margin:0;color:#241E18;">{{ w.title }}</h3>
                 <div style="font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;margin:10px 0 0;">{{ w.sub }}</div>
@@ -288,19 +297,48 @@
             <input type="tel" required="" aria-label="Telefon" value="{{ form.phone }}" onChange="{{ setPhone }}" placeholder="Telefon" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
           </div>
           <div style="display:flex;gap:16px;flex-wrap:wrap;">
-            <select required="" aria-label="Usluga" value="{{ form.service }}" onChange="{{ setService }}" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
-              <option value="">Izaberite uslugu</option>
-              <option>Nega lica</option>
-              <option>Tretmani tela</option>
-              <option>Masaže</option>
-              <option>Depilacija</option>
-              <option>Manikir i pedikir</option>
-              <option>Trepavice i obrve</option>
-              <option>Šminka</option>
-              <option>Poklon vaučer</option>
-              <option>Ostalo</option>
-            </select>
-            <input type="date" aria-label="Željeni datum" value="{{ form.date }}" onChange="{{ setDate }}" style="flex:1 1 180px;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+            <div class="frm-field">
+              <select required="" class="frm-select" aria-label="Usluga" value="{{ form.service }}" onChange="{{ setService }}" style="width:100%;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;">
+                <option value="">Izaberite uslugu</option>
+                <option>Nega lica</option>
+                <option>Tretmani tela</option>
+                <option>Masaže</option>
+                <option>Depilacija</option>
+                <option>Manikir i pedikir</option>
+                <option>Trepavice i obrve</option>
+                <option>Šminka</option>
+                <option>Poklon vaučer</option>
+                <option>Ostalo</option>
+              </select>
+              <span class="frm-chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </div>
+            <div class="frm-field" style="position:relative;">
+              <button type="button" onClick="{{ toggleCal }}" aria-label="Željeni datum" style="width:100%;text-align:left;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;border-radius:999px;outline:none;font-family:'Questrial',sans-serif;transition:border-color .2s;cursor:pointer;" style-focus="border-color:#B08D57;">
+                <sc-if value="{{ dateEmpty }}" hint-placeholder-val="{{ true }}"><span style="color:#9A8E7E;">Željeni datum</span></sc-if>
+                <sc-if value="{{ dateSelected }}"><span style="color:#241E18;">{{ dateLabel }}</span></sc-if>
+              </button>
+              <span class="frm-chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              <sc-if value="{{ calOpen }}">
+                <div onClick="{{ closeCal }}" style="position:fixed;inset:0;z-index:40;"></div>
+                <div style="position:absolute;z-index:41;top:calc(100% + 8px);left:0;width:304px;max-width:92vw;background:#fff;border:1px solid #E4DACB;border-radius:20px;box-shadow:0 18px 50px rgba(58,36,32,.18);padding:16px 18px 14px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                    <button type="button" onClick="{{ calPrev }}" aria-label="Prethodni mesec" style="width:32px;height:32px;border:1px solid #E4DACB;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#B08D57;" style-hover="background:#F7EFEC;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                    <span style="font-family:'Questrial',sans-serif;font-size:15.5px;font-weight:600;color:#241E18;letter-spacing:.01em;">{{ calTitle }}</span>
+                    <button type="button" onClick="{{ calNext }}" aria-label="Sledeći mesec" style="width:32px;height:32px;border:1px solid #E4DACB;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#B08D57;" style-hover="background:#F7EFEC;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;">
+                    <sc-for list="{{ calWeekdays }}" as="wd" hint-placeholder-count="7"><span style="display:flex;align-items:center;justify-content:center;height:28px;font-family:'Questrial',sans-serif;font-size:12px;color:#B0A796;letter-spacing:.02em;">{{ wd }}</span></sc-for>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">
+                    <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35"><div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="{{ c.hover }}">{{ c.txt }}</div></sc-for>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid #F0E7DA;">
+                    <button type="button" onClick="{{ clearDate }}" style="background:none;border:none;cursor:pointer;font-family:'Questrial',sans-serif;font-size:14px;color:#9A8E7E;padding:0;" style-hover="color:#241E18;">Obriši</button>
+                    <button type="button" onClick="{{ todayDate }}" style="background:none;border:none;cursor:pointer;font-family:'Questrial',sans-serif;font-size:14px;color:#B08D57;padding:0;" style-hover="color:#8A6C3E;">Danas</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
           </div>
           <div style="display:flex;gap:16px;align-items:flex-end;">
             <textarea rows="3" aria-label="Napomena" value="{{ form.note }}" onChange="{{ setNote }}" placeholder="Napomena - željeno vreme ili dodatne informacije" style="flex:1;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:26px;outline:none;resize:vertical;min-height:96px;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;"></textarea>
@@ -381,6 +419,9 @@
 class Component extends DCLogic {
   state = {
     form: { name: '', phone: '', service: '', date: '', note: '' },
+    calOpen: false,
+    calY: null,
+    calM: null,
     menuOpen: false,
     submitted: false,
     faqOpen: 0,
@@ -450,6 +491,30 @@ class Component extends DCLogic {
   }
   toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
   closeMenu = () => this.setState({ menuOpen: false });
+  toggleCal = () => this.setState(s => {
+    if (s.calOpen) return { calOpen: false };
+    const base = s.form.date ? new Date(s.form.date) : new Date();
+    return { calOpen: true, calY: base.getFullYear(), calM: base.getMonth() };
+  });
+  closeCal = () => this.setState({ calOpen: false });
+  calShift = (delta) => this.setState(s => {
+    let m = s.calM + delta, y = s.calY;
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
+    return { calM: m, calY: y };
+  });
+  selectDay = (d) => this.setState(s => {
+    const mm = String(s.calM + 1).padStart(2, '0');
+    const dd = String(d).padStart(2, '0');
+    return { form: { ...s.form, date: s.calY + '-' + mm + '-' + dd }, calOpen: false };
+  });
+  clearDate = () => this.setState(s => ({ form: { ...s.form, date: '' }, calOpen: false }));
+  todayDate = () => this.setState(s => {
+    const t = new Date();
+    const mm = String(t.getMonth() + 1).padStart(2, '0');
+    const dd = String(t.getDate()).padStart(2, '0');
+    return { form: { ...s.form, date: t.getFullYear() + '-' + mm + '-' + dd }, calOpen: false };
+  });
   renderVals() {
     const svcData = [
       { title: 'Manikir i pedikir', img: 'assets/svc-manikir.jpg', desc: 'Trajni lak, gel nadogradnja i nega noktiju u prijatnom ambijentu.' },
@@ -630,6 +695,32 @@ class Component extends DCLogic {
       scale: i === tIdx ? 1.25 : 1,
       go: () => this.setState({ tIdx: i })
     }));
+    const MONTHS = ['Januar','Februar','Mart','April','Maj','Jun','Jul','Avgust','Septembar','Oktobar','Novembar','Decembar'];
+    const cal = { title: '', weekdays: ['Pon','Uto','Sre','Čet','Pet','Sub','Ned'], cells: [] };
+    if (this.state.calOpen && this.state.calY != null) {
+      const cy = this.state.calY, cm = this.state.calM;
+      cal.title = MONTHS[cm] + ' ' + cy;
+      const lead = (new Date(cy, cm, 1).getDay() + 6) % 7;
+      const dim = new Date(cy, cm + 1, 0).getDate();
+      const today = new Date();
+      const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const sel = this.state.form.date ? this.state.form.date.split('-').map(Number) : null;
+      const base = { display:'flex', alignItems:'center', justifyContent:'center', height:'36px', borderRadius:'10px', fontFamily:"'Questrial',sans-serif", fontSize:'14px' };
+      for (let i = 0; i < lead; i++) cal.cells.push({ txt: '', style: { ...base }, hover: '', onClick: () => {} });
+      for (let d = 1; d <= dim; d++) {
+        const isSel = sel && sel[0] === cy && sel[1] === cm + 1 && sel[2] === d;
+        const isToday = today.getFullYear() === cy && today.getMonth() === cm && today.getDate() === d;
+        const isPast = new Date(cy, cm, d) < todayMid;
+        cal.cells.push({
+          txt: String(d),
+          style: isPast
+            ? { ...base, cursor:'not-allowed', color:'#CDC5B8', background:'transparent', fontWeight:400, border:'1px solid transparent' }
+            : { ...base, cursor:'pointer', color: isSel ? '#3A2420' : '#241E18', background: isSel ? '#DDB4AE' : 'transparent', fontWeight: isSel ? 600 : 400, border: (isToday && !isSel) ? '1px solid #DDB4AE' : '1px solid transparent' },
+          hover: isPast ? '' : (isSel ? 'background:#D0A29B;' : 'background:#F7EFEC;'),
+          onClick: isPast ? (() => {}) : (() => this.selectDay(d))
+        });
+      }
+    }
     return {
       services, active, deck, serviceCards, whyItems, gallery, priceTabs, activeCat, testimonials, faqs,
       menuOpen: this.state.menuOpen,
@@ -645,6 +736,19 @@ class Component extends DCLogic {
       glowMove: (e) => { const t=e.currentTarget; const r=t.getBoundingClientRect(); const s=t.querySelector('[data-shine]'); if(s){ s.style.left=(e.clientX-r.left)+'px'; s.style.top=(e.clientY-r.top)+'px'; s.style.opacity='1'; } },
       glowLeave: (e) => { const s=e.currentTarget.querySelector('[data-shine]'); if(s) s.style.opacity='0'; },
       form: this.state.form,
+      dateEmpty: !this.state.form.date,
+      dateSelected: !!this.state.form.date,
+      dateLabel: (() => { if (!this.state.form.date) return ''; const p = this.state.form.date.split('-'); return p[2] + '.' + p[1] + '.' + p[0] + '.'; })(),
+      calOpen: this.state.calOpen,
+      calTitle: cal.title,
+      calWeekdays: cal.weekdays,
+      calCells: cal.cells,
+      toggleCal: this.toggleCal,
+      closeCal: this.closeCal,
+      calPrev: () => this.calShift(-1),
+      calNext: () => this.calShift(1),
+      clearDate: this.clearDate,
+      todayDate: this.todayDate,
       submitted: this.state.submitted,
       showForm: !this.state.submitted,
       onSubmit: (e) => this.handleSubmit(e),
