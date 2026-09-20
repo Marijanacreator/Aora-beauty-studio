@@ -30,7 +30,7 @@
     body{margin:0;}
     ::selection{background:#B08D57;color:#fff;}
     input,select,textarea,button{font-family:inherit;}
-    .lucide{stroke-width:1.5;}
+    .lucide{stroke-width:1.25;}
     #svc-scroll{scrollbar-width:none;-ms-overflow-style:none;}
     #svc-scroll::-webkit-scrollbar{display:none;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
@@ -116,8 +116,8 @@
   </header>
 
   <section style="position:relative;height:100vh;min-height:560px;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:-72px;overflow:hidden;background:#EDE6DB;">
-    <video ref="{{ videoRef }}" autoplay="" muted="" loop="" playsinline="" poster="assets/g1.jpg" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.9);transform-origin:center;">
-      <source src="assets/hero.mp4" type="video/mp4">
+    <video class="hero-vid" ref="{{ videoRef }}" autoplay="" muted="" loop="" playsinline="" poster="assets/g1.jpg" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.9);transform-origin:center;">
+      <source src="assets/hero-v2.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,20,12,.55) 0%,rgba(28,20,12,.30) 42%,rgba(28,20,12,.62) 100%);"></div>
     <svg style="position:absolute;left:0;bottom:-1px;width:100%;height:clamp(46px,7vw,104px);display:block;pointer-events:none;z-index:2;" viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,0 Q720,120 1440,0 L1440,100 L0,100 Z" fill="#F5F1EA"></path></svg>
@@ -289,9 +289,9 @@
         <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(32px,4.6vw,58px);line-height:1.08;margin:22px 0 0;color:#241E18;">Spremni za svoj trenutak?<br><span style="color:#B08D57;">Rezervišite termin.</span></h2>
         <p style="font-size:16.5px;line-height:1.8;color:#6B635A;font-weight:300;margin:22px 0 0;max-width:44ch;">Popunite formu i javićemo vam se radi potvrde termina. Za brže zakazivanje, slobodno nas pozovite ili pišite.</p>
         <div style="display:flex;flex-direction:column;gap:16px;margin-top:34px;">
-          <a href="tel:0692054775" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16px;">069 2054 775</span></span></a>
-          <div style="display:flex;align-items:center;gap:14px;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16px;">Bulevar Evrope 13</span></span></div>
-          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:46px;height:46px;border-radius:50%;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16px;">@aora.beautystudio</span></span></a>
+          <a href="tel:0692054775" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16px;">069 2054 775</span></span></a>
+          <div style="display:flex;align-items:center;gap:14px;color:#3A322B;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16px;">Bulevar Evrope 13, Novi Sad</span></span></div>
+          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></span><span><span style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16px;">@aora.beautystudio</span></span></a>
         </div>
       </div>
       <div>
@@ -368,10 +368,10 @@
         <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Kontakt i lokacija</div>
         <h2 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:20px 0 0;color:#241E18;">Posetite nas</h2>
         <div style="display:flex;flex-direction:column;gap:22px;margin-top:32px;">
-          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16.5px;color:#3A322B;">Bulevar Evrope 13</span></span></div>
-          <a href="tel:0692054775" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16.5px;">069 2054 775</span></span></a>
-          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="at-sign" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16.5px;">@aora.beautystudio</span></span></a>
-          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:44px;height:44px;border-radius:14px;background:#F1E7D5;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="clock" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Radno vreme</span><span style="font-size:16.5px;color:#3A322B;">Pon - Pet 09 - 20h · Sub 09 -15h</span></span></div>
+          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="map-pin" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Adresa</span><span style="font-size:16.5px;color:#3A322B;">Bulevar Evrope 13, Novi Sad</span></span></div>
+          <a href="tel:0692054775" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="phone" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Telefon</span><span style="font-size:16.5px;">069 2054 775</span></span></a>
+          <a href="https://www.instagram.com/aora.beautystudio/" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#3A322B;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="at-sign" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Instagram</span><span style="font-size:16.5px;">@aora.beautystudio</span></span></a>
+          <div style="display:flex;align-items:flex-start;gap:14px;"><span style="flex:none;width:48px;height:48px;border-radius:50%;border:1px solid #D9C7A6;display:flex;align-items:center;justify-content:center;color:#B08D57;"><i data-lucide="clock" style="width:20px;height:20px;"></i></span><span><span style="display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;">Radno vreme</span><span style="font-size:16.5px;color:#3A322B;">Pon - Pet 09 - 20h · Sub 09 -15h</span></span></div>
         </div>
       </div>
       <div style="order:-1;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -34px rgba(60,45,25,.5);">
@@ -420,7 +420,7 @@
         <div style="display:flex;flex-direction:column;gap:13px;"><a href="#cenovnik" class="fl">Nega lica</a><a href="#cenovnik" class="fl">Masaže</a><a href="#cenovnik" class="fl">Manikir i pedikir</a><a href="#cenovnik" class="fl">Šminka</a><a href="#zakazivanje" class="fl">Depilacija</a></div>
       </div>
     </div>
-    <div style="position:relative;z-index:2;background:#DDB4AE;text-align:center;padding:18px 20px;font-size:13px;letter-spacing:.05em;color:#4A3B33;">© {{ year }} Aora Beauty Studio · Bulevar Evrope 13 · Sva prava zadržana</div>
+    <div style="position:relative;z-index:2;background:#DDB4AE;text-align:center;padding:18px 20px;font-size:13px;letter-spacing:.05em;color:#4A3B33;">© {{ year }} Aora Beauty Studio · Bulevar Evrope 13, Novi Sad · Sva prava zadržana</div>
   </footer>
 
   <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:fixed;overflow:hidden;bottom:22px;right:22px;z-index:90;background:rgba(42,32,26,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.32);color:#fff;text-decoration:none;padding:15px 28px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:999px;box-shadow:0 14px 34px -12px rgba(60,45,25,.7);transition:transform .25s,opacity .35s,visibility .35s;opacity:{{ fabOpacity }};visibility:{{ fabVis }};pointer-events:{{ fabPE }};" style-hover="transform:translateY(-2px);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
@@ -454,12 +454,27 @@ class Component extends DCLogic {
     }
     const v = this.videoRef.current;
     if (v) {
-      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true;
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      const isMobile = () => window.matchMedia('(max-width:640px)').matches;
+      v.loop = !isMobile();
+      const START = 3; // mobile: skip letterboxed intro (0–2.9s)
+      const seekStart = () => { if (isMobile() && v.currentTime < START - 0.1) { try { v.currentTime = START; } catch (e) {} } };
       const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
       tryPlay();
-      v.addEventListener('loadeddata', tryPlay);
+      v.addEventListener('loadedmetadata', seekStart);
+      v.addEventListener('loadeddata', () => { seekStart(); tryPlay(); });
       v.addEventListener('canplay', tryPlay);
-      v.addEventListener('ended', () => { v.currentTime = 0; tryPlay(); });
+      v.addEventListener('timeupdate', () => {
+        if (isMobile() && v.duration && v.currentTime >= v.duration - 0.15) { try { v.currentTime = START; v.play(); } catch (e) {} }
+      });
+      v.addEventListener('ended', () => { v.currentTime = isMobile() ? START : 0; tryPlay(); });
+      const applyZoom = () => {
+        v.style.transformOrigin = 'center';
+        v.style.transform = 'translate(-50%,-50%) scale(' + (isMobile() ? 1 : 1.9) + ')';
+        seekStart();
+      };
+      window.addEventListener('resize', applyZoom);
+      applyZoom();
     }
     setTimeout(() => this.componentDidMount_reveal(), 60);
     this._onScroll = () => {
