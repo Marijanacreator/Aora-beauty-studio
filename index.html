@@ -6,6 +6,12 @@
 <script src="./support.js"></script>
 </head>
 <body>
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+    <rect width="400" height="400" fill="#E8B4B8"/>
+    <text x="200" y="235" font-family="Georgia, serif" font-size="150" font-style="italic" fill="#F5F1EA" text-anchor="middle">A</text>
+  </svg>
+</template>
 <x-dc>
 <helmet>
   <meta name="ext-resource-dependency" content="assets/hero.jpg">
@@ -68,6 +74,9 @@
     .nav-panel a.cta{margin-top:8px;text-align:center;background:#241E18;color:#fff;text-transform:uppercase;font-size:12.5px;letter-spacing:.14em;}
     .nav-panel a.cta:hover{background:#3A322B;color:#fff;}
     @media(max-width:860px){
+      .why-blob-a,.why-blob-b{display:none !important;}
+      .price-tabs{display:grid !important;grid-template-columns:1fr 1fr !important;gap:10px !important;}
+      .price-tabs > span{text-align:center !important;padding:12px 10px !important;}
       .nav-desktop{display:none !important;}
       .nav-burger{display:inline-flex !important;}
       #zasto [data-why-idx] > div{width:100% !important;}
@@ -81,7 +90,7 @@
       .gal-grid{grid-template-columns:1fr 1fr !important;}
     }
     @media(min-width:861px) and (max-width:1080px){ .gal-grid{grid-template-columns:repeat(2,1fr) !important;} }
-    @media(min-width:861px){ .nav-panel{display:none !important;} }
+    @media(min-width:861px){ .nav-panel{display:none !important;} .back-to-cat{display:none !important;} }
     @media(max-width:760px){ .svc-intro{grid-template-columns:1fr !important;align-items:start !important;} .svc-cards{grid-template-columns:1fr !important;} }
   </style>
 </helmet>
@@ -129,14 +138,14 @@
         <h1 style="font-family:'Questrial',sans-serif;font-weight:500;color:#fff;font-size:clamp(46px,7.4vw,92px);line-height:1.02;margin:24px 0 0;letter-spacing:.01em;"><span style="font-weight:700;">Tvoj trenutak</span> lepote</h1>
         <p style="color:rgba(255,255,255,.86);font-size:clamp(16px,1.55vw,19px);line-height:1.75;max-width:46ch;margin:24px auto 0;font-weight:300;">Sterilan i jednokratan pribor, profesionalna kozmetika i pažnja posvećena samo vama - vaš kutak mira i lepote u srcu grada.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
-          <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.6);color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:12px;transition:border-color .25s;" style-hover="border-color:#fff;"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
-          <a href="#cenovnik" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;border-radius:12px;backdrop-filter:blur(4px);transition:.25s;" style-hover="background:rgba(255,255,255,.22);border-color:#fff;">Pogledajte usluge</a>
+          <a href="#zakazivanje" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;background:#A8874B;border:1px solid #A8874B;color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;border-radius:12px;box-shadow:0 14px 30px -12px rgba(120,95,45,.6);transition:background .25s,box-shadow .25s,transform .25s;" style-hover="background:#8F7139;box-shadow:0 18px 38px -12px rgba(120,95,45,.75);transform:translateY(-1px);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.45),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Zakažite termin</span></a>
+          <a href="#cenovnik" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5);color:#fff;text-decoration:none;padding:16px 32px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;border-radius:12px;backdrop-filter:blur(4px);transition:background .25s,border-color .25s;" style-hover="background:rgba(255,255,255,.22);border-color:#fff;"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">Pogledajte usluge</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="o-nama" style="position:relative;scroll-margin-top:96px;background:#FBF9F5;padding:clamp(72px,10vw,128px) clamp(18px,5vw,48px) clamp(64px,9vw,120px);">
+  <section id="o-nama" style="position:relative;scroll-margin-top:96px;background:#FBF9F5;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <svg style="position:absolute;left:0;top:1px;width:100%;height:clamp(34px,5vw,60px);transform:translateY(-100%);display:block;pointer-events:none;" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,60 L0,30 C480,-10 960,70 1440,30 L1440,60 Z" fill="#FBF9F5"></path></svg>
     <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,72px);align-items:center;">
       <div>
@@ -153,9 +162,9 @@
     </div>
   </section>
 
-  <section id="zasto" style="position:relative;overflow:hidden;scroll-margin-top:96px;padding:clamp(72px,10vw,128px) clamp(18px,5vw,48px);">
-    <svg style="position:absolute;top:6%;left:-8%;width:52%;height:auto;opacity:.5;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#F3E7E7" d="M300,60c90,-30,190,20,220,110c30,90,-10,180,-90,230c-80,50,-190,40,-260,-30c-70,-70,-80,-190,-20,-260c30,-35,80,-40,150,-50Z"></path></svg>
-    <svg style="position:absolute;bottom:2%;right:-6%;width:46%;height:auto;opacity:.55;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#E7ECE4" d="M330,58c118,2,182,92,176,196c-6,104,-96,150,-206,168c-96,16,-176,-44,-206,-150c-26,-92,18,-176,120,-198c40,-9,78,-17,116,-16Z"></path></svg>
+  <section id="zasto" style="position:relative;overflow:hidden;scroll-margin-top:96px;background:#F2ECE1;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
+    <svg class="why-blob-a" style="position:absolute;top:6%;left:-8%;width:52%;height:auto;opacity:.4;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#E7C9C2" d="M300,60c90,-30,190,20,220,110c30,90,-10,180,-90,230c-80,50,-190,40,-260,-30c-70,-70,-80,-190,-20,-260c30,-35,80,-40,150,-50Z"></path></svg>
+    <svg class="why-blob-b" style="position:absolute;bottom:2%;right:-6%;width:46%;height:auto;opacity:.45;pointer-events:none;z-index:0;" viewBox="0 0 600 600"><path fill="#E4D6B8" d="M330,58c118,2,182,92,176,196c-6,104,-96,150,-206,168c-96,16,-176,-44,-206,-150c-26,-92,18,-176,120,-198c40,-9,78,-17,116,-16Z"></path></svg>
     <div style="position:relative;z-index:1;max-width:1180px;margin:0 auto;">
       <div style="text-align:center;max-width:640px;margin:0 auto clamp(48px,7vw,88px);">
         <div style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#9A7B45;">Zašto Aora</div>
@@ -168,7 +177,7 @@
               <span style="font-family:'Jost',sans-serif;font-style:italic;font-weight:300;font-size:clamp(60px,8.4vw,112px);line-height:.8;color:#DDB4AE;flex:none;">{{ w.num }}</span>
               <div style="padding-top:6px;">
                 <h3 style="font-weight:400;font-size:clamp(22px,2.6vw,30px);letter-spacing:.02em;text-transform:uppercase;margin:0;color:#241E18;">{{ w.title }}</h3>
-                <div style="font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;margin:10px 0 0;">{{ w.sub }}</div>
+                <div style="font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9A7B45;margin:10px 0 0;text-wrap:balance;">{{ w.sub }}</div>
                 <p style="font-size:16px;line-height:1.75;color:#6B635A;margin:16px 0 0;">{{ w.text }}</p>
               </div>
             </div>
@@ -179,7 +188,7 @@
   </section>
 
 
-  <section id="galerija" style="scroll-margin-top:96px;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+  <section id="galerija" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <div style="max-width:1200px;margin:0 auto;">
       <div style="text-align:center;max-width:640px;margin:0 auto;">
         <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Galerija</div>
@@ -196,31 +205,59 @@
   </section>
 
   <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}">
-  <section id="cenovnik" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+  <section id="cenovnik" style="scroll-margin-top:96px;background:#F2ECE1;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <div style="max-width:1180px;margin:0 auto;">
       <div style="text-align:center;">
         <div style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#9A7B45;">Cenovnik</div>
         <h2 style="font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1.06;margin:16px 0 0;color:#241E18;">Cene tretmana</h2>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;margin-top:clamp(32px,4vw,48px);">
-        <sc-for list="{{ priceTabs }}" as="t" hint-placeholder-count="6">
-          <span onClick="{{ t.select }}" style="cursor:pointer;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:5px;border-bottom:2px solid {{ t.underline }};color:{{ t.color }};transition:color .2s,border-color .2s;">{{ t.title }}</span>
+      <div class="price-tabs" style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:clamp(36px,4vw,52px);">
+        <sc-for list="{{ groupTabs }}" as="t" hint-placeholder-count="4">
+          <span onClick="{{ t.select }}" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;cursor:pointer;background:{{ t.bg }};color:{{ t.color }};border:1px solid {{ t.border }};border-radius:999px;padding:11px 26px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;transition:background .2s,color .2s,border-color .2s;"><span data-shine="" style="position:absolute;left:50%;top:50%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(176,141,87,.4),rgba(176,141,87,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;">{{ t.title }}</span></span>
         </sc-for>
       </div>
-      <h3 style="text-align:center;font-weight:400;font-size:clamp(24px,3vw,34px);letter-spacing:.02em;color:#241E18;margin:clamp(40px,5vw,60px) 0 clamp(30px,4vw,44px);text-transform:uppercase;">{{ activeCat.title }}</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,4vw,56px);">
-        <sc-for list="{{ activeCat.items }}" as="it" hint-placeholder-count="6">
-          <div>
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;">
-              <span style="font-size:17px;font-weight:400;color:#241E18;">{{ it.name }}</span>
-              <span style="font-size:16px;color:#241E18;white-space:nowrap;">{{ it.price }}</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-top:5px;">
-              <sc-if value="{{ it.note }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#9A8E7E;">{{ it.note }}</span></sc-if>
-              <sc-if value="{{ it.badge }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9A7B45;border:1px solid #D8C7A8;padding:2px 9px;border-radius:999px;">Popularno</span></sc-if>
-            </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(22px,2.6vw,30px);margin-top:clamp(34px,4vw,50px);align-items:stretch;">
+        <sc-for list="{{ activeGroup.columns }}" as="col" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:clamp(22px,2.6vw,30px);">
+            <sc-for list="{{ col }}" as="s" hint-placeholder-count="2">
+              <div style="background:#fff;border:1px solid #EBE3D4;border-radius:22px;padding:clamp(24px,2.6vw,34px) clamp(20px,2.4vw,28px);box-shadow:0 30px 60px -46px rgba(60,45,25,.5);display:flex;flex-direction:column;flex:1 1 auto;">
+                <h3 style="font-family:'Questrial',sans-serif;font-weight:500;font-size:clamp(19px,2.2vw,24px);letter-spacing:.01em;color:#241E18;margin:0 0 4px;">{{ s.title }}</h3>
+                <div style="width:46px;height:3px;border-radius:2px;background:#A8874B;margin:0 0 20px;"></div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4">
+                    <sc-if value="{{ it.spacer }}" hint-placeholder-val="{{ false }}"><div style="height:60px;" aria-hidden="true"></div></sc-if>
+                    <sc-if value="{{ it.real }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;background:#FBF8F2;border:1px solid #EEE7D8;border-radius:12px;padding:11px 15px;">
+                        <div style="min-width:0;">
+                          <div style="font-size:15px;color:#241E18;line-height:1.3;">{{ it.name }}</div>
+                          <sc-if value="{{ it.meta }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#A2988A;margin-top:3px;">{{ it.meta }}</div></sc-if>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;flex:none;">
+                          <sc-if value="{{ it.pop }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#9A7B45;border:1px solid #D8C7A8;padding:2px 8px;border-radius:999px;">Popularno</span></sc-if>
+                          <span style="font-size:15px;font-weight:500;color:#241E18;white-space:nowrap;">{{ it.price }}</span>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ s.multi }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:auto;padding-top:18px;">
+                    <span onClick="{{ s.prev }}" style="cursor:pointer;width:30px;height:30px;border:1px solid #E4DAC8;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#9A7B45;font-size:16px;line-height:1;transition:.2s;" style-hover="background:#241E18;color:#fff;border-color:#241E18;">‹</span>
+                    <div style="display:flex;gap:7px;">
+                      <sc-for list="{{ s.dots }}" as="d" hint-placeholder-count="2">
+                        <span onClick="{{ d.go }}" style="cursor:pointer;width:8px;height:8px;border-radius:50%;background:{{ d.color }};transition:background .2s;"></span>
+                      </sc-for>
+                    </div>
+                    <span onClick="{{ s.next }}" style="cursor:pointer;width:30px;height:30px;border:1px solid #E4DAC8;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#9A7B45;font-size:16px;line-height:1;transition:.2s;" style-hover="background:#241E18;color:#fff;border-color:#241E18;">›</span>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
           </div>
         </sc-for>
+      </div>
+      <div class="back-to-cat" style="display:flex;justify-content:center;margin:clamp(30px,4vw,44px) 0 0;">
+        <a href="#cenovnik" style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#9A7B45;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;border:1px solid #E0D3BC;border-radius:999px;padding:10px 22px;transition:background .2s,color .2s,border-color .2s;" style-hover="background:#241E18;color:#fff;border-color:#241E18;"><span style="font-size:14px;line-height:1;">↑</span> Nazad na kategorije</a>
       </div>
       <div style="display:flex;justify-content:center;margin:clamp(48px,6vw,72px) 0 0;"><span style="width:96px;height:3px;background:#241E18;"></span></div>
       <p style="text-align:center;font-size:14px;color:#8A8073;margin:24px auto 0;max-width:44ch;">*Cene su okvirne i mogu da variraju u zavisnosti od dužine i detalja tretmana. Kompletan cenovnik potvrđujemo prilikom zakazivanja.</p>
@@ -282,7 +319,7 @@
   </section>
   </sc-if>
 
-  <section id="zakazivanje" style="position:relative;scroll-margin-top:96px;background:#F5F1EA;padding:clamp(72px,10vw,120px) clamp(18px,5vw,48px);">
+  <section id="zakazivanje" style="position:relative;scroll-margin-top:96px;background:#F5F1EA;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,80px);align-items:center;">
       <div>
         <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Zakazivanje</div>
@@ -352,9 +389,9 @@
               </sc-if>
             </div>
           </div>
-          <div style="display:flex;gap:16px;align-items:flex-end;">
-            <textarea rows="3" aria-label="Napomena" value="{{ form.note }}" onChange="{{ setNote }}" placeholder="Napomena - željeno vreme ili dodatne informacije" style="flex:1;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:26px;outline:none;resize:vertical;min-height:96px;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;"></textarea>
-            <button type="submit" aria-label="Pošaljite zahtev" style="flex:none;width:62px;height:62px;border-radius:50%;background:#DDB4AE;color:#3A2420;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s,transform .25s;" style-hover="background:#D0A29B;transform:translateY(-2px);"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></button>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <textarea rows="3" aria-label="Napomena" value="{{ form.note }}" onChange="{{ setNote }}" placeholder="Napomena - željeno vreme ili dodatne informacije" style="width:100%;border:1px solid #DDD3C3;background:#fff;padding:16px 22px;font-size:15px;color:#241E18;border-radius:26px;outline:none;resize:vertical;min-height:96px;font-family:'Questrial',sans-serif;transition:border-color .2s;" style-focus="border-color:#B08D57;"></textarea>
+            <button type="submit" aria-label="Rezerviši termin" onMouseMove="{{ glowMove }}" onMouseLeave="{{ glowLeave }}" style="position:relative;overflow:hidden;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#DDB4AE;color:#3A2420;border:none;border-radius:999px;padding:19px 30px;font-family:'Questrial',sans-serif;font-size:14px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 24px -16px rgba(60,45,25,.45);transition:background .25s,transform .25s;" style-hover="background:#D3A49D;transform:translateY(-1px);"><span data-shine="" style="position:absolute;left:50%;top:50%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6),rgba(255,255,255,0) 60%);opacity:0;transform:translate(-50%,-50%);pointer-events:none;transition:opacity .3s;"></span><span style="position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;">Rezerviši termin <i data-lucide="arrow-right" style="width:20px;height:20px;"></i></span></button>
           </div>
         </form>
         </sc-if>
@@ -362,7 +399,7 @@
     </div>
   </section>
 
-  <section id="kontakt" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+  <section id="kontakt" style="scroll-margin-top:96px;background:#FBF9F5;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(36px,5vw,64px);align-items:center;">
       <div>
         <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Kontakt i lokacija</div>
@@ -380,7 +417,7 @@
     </div>
   </section>
 
-  <section id="faq" style="scroll-margin-top:96px;background:#E7ECE4;padding:clamp(64px,9vw,120px) clamp(18px,5vw,48px);">
+  <section id="faq" style="scroll-margin-top:96px;background:#E7ECE4;padding:clamp(72px,9vw,120px) clamp(18px,5vw,48px);">
     <div style="max-width:820px;margin:0 auto;">
       <div style="text-align:center;">
         <div style="display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;letter-spacing:.28em;color:#9A7B45;font-weight:500;">Česta pitanja</div>
@@ -438,7 +475,7 @@ class Component extends DCLogic {
     submitted: false,
     faqOpen: 0,
     activeSvc: 0,
-    activeCat: 0,
+    activeGroup: 0,
     revealed: {},
     showFab: false
   };
@@ -683,17 +720,66 @@ class Component extends DCLogic {
         { name: 'Profesionalno šminkanje', min: '60 min', price: '4.000' }
       ] }
     ];
-    const aci = this.state.activeCat;
-    const priceTabs = priceCats.map((c, i) => ({
-      title: c.title,
-      select: () => this.setState({ activeCat: i }),
-      color: i === aci ? '#241E18' : '#9A8E7E',
-      underline: i === aci ? '#241E18' : 'transparent'
+    const groupDefs = [
+      { title: 'Tretmani lica', subs: ['Tretmani lica', 'Trepavice', 'Profesionalno šminkanje'] },
+      { title: 'Tretmani tela', subs: ['Tretmani tela', 'Masaže za dame'] },
+      { title: 'Manikir i pedikir', subs: ['Manikir', 'Pedikir'] },
+      { title: 'Depilacija', subs: ['Depilacija za dame', 'Depilacija za muškarce'] }
+    ];
+    const findCat = (t) => priceCats.find(c => c.title === t);
+    const priceGroups = groupDefs.map(g => ({
+      title: g.title,
+      subs: g.subs.map(st => {
+        const c = findCat(st);
+        return {
+          title: st,
+          items: c ? c.items.map(it => ({
+            name: it.name,
+            meta: it.min || '',
+            price: it.price + ' din',
+            pop: !!it.pop
+          })) : []
+        };
+      })
     }));
-    const activeCat = {
-      title: priceCats[aci].title,
-      items: priceCats[aci].items.map(it => ({ name: it.name, price: it.price + ' din', note: it.note || '' }))
-    };
+    const agi = this.state.activeGroup || 0;
+    const groupTabs = priceGroups.map((g, i) => ({
+      title: g.title,
+      select: () => this.setState({ activeGroup: i }),
+      bg: i === agi ? '#241E18' : '#fff',
+      color: i === agi ? '#fff' : '#6B635A',
+      border: i === agi ? '#241E18' : '#E4DAC8'
+    }));
+    const PAGE = 5;
+    const subPage = this.state.subPage || {};
+    const setPage = (key, pi) => this.setState({ subPage: { ...(this.state.subPage || {}), [key]: pi } });
+    const builtSubs = priceGroups[agi].subs.map((s, si) => {
+      const sorted = [...s.items].sort((a, b) => (b.pop ? 1 : 0) - (a.pop ? 1 : 0));
+      const pages = [];
+      for (let i = 0; i < sorted.length; i += PAGE) pages.push(sorted.slice(i, i + PAGE));
+      if (pages.length === 0) pages.push([]);
+      const key = agi + '-' + si;
+      const cur = Math.min(subPage[key] || 0, pages.length - 1);
+      let curItems = pages[cur].map(it => ({ ...it, real: true }));
+      if (pages.length > 1) { while (curItems.length < PAGE) curItems.push({ spacer: true }); }
+      return {
+        title: s.title,
+        items: curItems,
+        count: s.items.length,
+        multi: pages.length > 1,
+        dots: pages.map((_, pi) => ({ color: pi === cur ? '#241E18' : '#D8CBB4', go: () => setPage(key, pi) })),
+        prev: () => setPage(key, (cur - 1 + pages.length) % pages.length),
+        next: () => setPage(key, (cur + 1) % pages.length)
+      };
+    });
+    const cols = [[], []];
+    const colCount = [0, 0];
+    builtSubs.forEach(s => {
+      const ci = colCount[0] <= colCount[1] ? 0 : 1;
+      cols[ci].push(s);
+      colCount[ci] += s.count;
+    });
+    const activeGroup = { title: priceGroups[agi].title, columns: cols };
     const testimonials = [
       { quote: 'Ovo mi je postalo omiljeno mesto. Ambijent je pretopao, a lice mi se preporodilo posle samo dva dolaska.', name: 'Milica J.', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', avatarBg: '#F1E7D5' },
       { quote: 'Najbolji lash lift u gradu! Devojke su ljubazne i istinski profesionalne.', name: 'Ana T.', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', avatarBg: '#EBD9D5' },
@@ -755,7 +841,7 @@ class Component extends DCLogic {
       }
     }
     return {
-      services, active, deck, serviceCards, whyItems, gallery, priceTabs, activeCat, testimonials, faqs,
+      services, active, deck, serviceCards, whyItems, gallery, groupTabs, activeGroup, testimonials, faqs,
       menuOpen: this.state.menuOpen,
       menuClosed: !this.state.menuOpen,
       menuExpanded: this.state.menuOpen ? 'true' : 'false',
